@@ -25,8 +25,8 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/frappe_erp_core/css/frappe_erp_core.css"
-# app_include_js = "/assets/frappe_erp_core/js/frappe_erp_core.js"
+app_include_css = "/assets/frappe_erp_core/css/my_desktop.css"
+app_include_js = "/assets/frappe_erp_core/js/default_desktop.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/frappe_erp_core/css/frappe_erp_core.css"
@@ -57,7 +57,7 @@ app_license = "mit"
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "app/my-desktop"
 
 # website user home page (by Role)
 # role_home_page = {
