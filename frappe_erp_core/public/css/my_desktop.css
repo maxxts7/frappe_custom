@@ -1,13 +1,3 @@
-body.my-desktop-page .body-sidebar-container,
-body.my-desktop-page .body-sidebar-placeholder {
-	display: none !important;
-}
-
-/* After leaving My Desktop, reset sidebar position that display:none displaced */
-body:not(.my-desktop-page) .body-sidebar-container.expanded .body-sidebar {
-	top: 0 !important;
-}
-
 .my-desktop-body {
 	background: var(--bg-color, #fafbfc);
 	min-height: calc(100vh - 60px);

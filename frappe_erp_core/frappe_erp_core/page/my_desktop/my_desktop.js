@@ -13,6 +13,7 @@ frappe.pages['my-desktop'].on_page_load = function (wrapper) {
 		parent: wrapper,
 		title: __('My Desktop'),
 		single_column: true,
+		hide_sidebar: true,
 	});
 
 	const $body = $(page.body).addClass('my-desktop-body');

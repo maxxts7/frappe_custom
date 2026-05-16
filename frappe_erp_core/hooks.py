@@ -25,8 +25,9 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = "/assets/frappe_erp_core/css/my_desktop.css?v=3"
-app_include_js = "/assets/frappe_erp_core/js/default_desktop.js?v=3"
+app_include_css = "/assets/frappe_erp_core/css/my_desktop.css?v=4"
+
+after_install = "frappe_erp_core.install.after_install"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/frappe_erp_core/css/frappe_erp_core.css"
