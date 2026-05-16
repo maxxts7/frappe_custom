@@ -12,6 +12,7 @@ def get_visible_workspaces():
 			"title",
 			"label",
 			"icon",
+			"indicator_color",
 			"module",
 			"sequence_id",
 			"restrict_to_domain",
