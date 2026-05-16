@@ -1,15 +1,33 @@
 $(document).on('app_ready', function () {
-	function redirect_if_empty() {
+	function is_bare_desk() {
+		// True only when Frappe lands on the root desk with no specific workspace/page
+		const p = window.location.pathname;
+		return p === '/desk' || p === '/desk/' || p === '/app' || p === '/app/';
+	}
+
+	function redirect_if_home() {
 		if (!frappe.session || frappe.session.user === 'Guest') return;
-		const route = frappe.get_route();
-		if (!route || route.length === 0 || (route.length === 1 && !route[0])) {
+		if (is_bare_desk()) {
 			frappe.set_route('my-desktop');
 		}
 	}
 
-	redirect_if_empty();
+	function sync_sidebar() {
+		const first = ((frappe.get_route && frappe.get_route()) || [])[0] || '';
+		const onDesktop = first === 'my-desktop';
+		$('body').toggleClass('my-desktop-page', onDesktop);
+	}
+
+	redirect_if_home();
+	sync_sidebar();
+
+	// page-change fires after Frappe finishes setting body classes for each page
+	$(document).on('page-change', sync_sidebar);
 
 	if (frappe.router && frappe.router.on) {
-		frappe.router.on('change', redirect_if_empty);
+		frappe.router.on('change', function () {
+			redirect_if_home();
+			sync_sidebar();
+		});
 	}
 });

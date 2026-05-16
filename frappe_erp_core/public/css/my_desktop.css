@@ -1,3 +1,13 @@
+body.my-desktop-page .body-sidebar-container,
+body.my-desktop-page .body-sidebar-placeholder {
+	display: none !important;
+}
+
+/* After leaving My Desktop, reset sidebar position that display:none displaced */
+body:not(.my-desktop-page) .body-sidebar-container.expanded .body-sidebar {
+	top: 0 !important;
+}
+
 .my-desktop-body {
 	background: var(--bg-color, #fafbfc);
 	min-height: calc(100vh - 60px);
@@ -51,13 +61,13 @@
 	width: 56px;
 	height: 56px;
 	border-radius: 12px;
-	background: var(--bg-light-gray, #f3f4f6);
-	color: var(--primary, #5e64ff);
+	background: #f3f4f6;
 }
 
 .my-desktop-tile .tile-icon svg {
 	width: 28px;
 	height: 28px;
+	stroke: currentColor;
 }
 
 .my-desktop-tile .tile-fallback {
