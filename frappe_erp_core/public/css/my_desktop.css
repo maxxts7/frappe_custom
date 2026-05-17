@@ -1,15 +1,74 @@
+/* =============================================================================
+   My Desktop — modern, classy landing page.
+   Tile grid with greeting hero, color-coded icon chips, left-aligned layout.
+   ============================================================================= */
+
 .my-desktop-body {
 	background: var(--bg-color, #fafbfc);
 	min-height: calc(100vh - 60px);
 }
 
-.my-desktop-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-	gap: 20px;
-	padding: 40px 32px;
+/* ---- Page header ---- */
+
+.my-desktop-head {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 24px;
 	max-width: 1320px;
 	margin: 0 auto;
+	padding: 8px 32px 24px;
+}
+
+@media (max-width: 680px) {
+	.my-desktop-head {
+		padding: 8px 16px 24px;
+	}
+}
+
+.my-desktop-head .head-text {
+	min-width: 0;
+}
+
+.my-desktop-title {
+	font-size: 30px;
+	font-weight: 600;
+	color: #0f172a;
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+	margin: 0;
+}
+
+.my-desktop-sub {
+	font-size: 13.5px;
+	font-weight: 500;
+	letter-spacing: -0.005em;
+	color: var(--text-muted, #6b7280);
+	margin-top: 8px;
+}
+
+/* ---- Grid ---- */
+
+.my-desktop-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 14px;
+	padding: 24px 32px 64px;
+	max-width: 1320px;
+	margin: 0 auto;
+}
+
+@media (max-width: 980px) {
+	.my-desktop-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (max-width: 680px) {
+	.my-desktop-grid {
+		grid-template-columns: repeat(2, 1fr);
+		padding: 24px 16px 48px;
+	}
 }
 
 .my-desktop-loading,
@@ -17,46 +76,72 @@
 	grid-column: 1 / -1;
 	text-align: center;
 	padding: 80px 0;
+	color: var(--text-muted, #6b7280);
+	font-size: 14px;
 }
 
+/* ---- Tile ---- */
+
 .my-desktop-tile {
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 14px;
-	aspect-ratio: 1;
-	padding: 22px 16px;
+	gap: 18px;
+	min-height: 134px;
+	padding: 16px;
 	background: var(--card-bg, #ffffff);
-	border: 1px solid var(--border-color, #e5e7eb);
+	border: 1px solid #eef0f3;
 	border-radius: 14px;
 	text-decoration: none;
 	color: var(--text-color, #1f2937);
-	transition: transform 0.15s ease, box-shadow 0.18s ease, border-color 0.15s ease;
 	cursor: pointer;
+	transition: border-color 0.15s ease, box-shadow 0.18s ease, transform 0.15s ease;
 }
 
 .my-desktop-tile:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
-	border-color: var(--primary, #5e64ff);
+	border-color: #5e64ff;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+	transform: translateY(-1px);
 	text-decoration: none;
 	color: var(--text-color, #1f2937);
 }
 
+.my-desktop-tile::after {
+	content: "";
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	width: 14px;
+	height: 14px;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235e64ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17 17 7M9 7h8v8'/></svg>");
+	background-repeat: no-repeat;
+	background-size: contain;
+	opacity: 0;
+	transform: translate(-4px, 4px);
+	transition: opacity 0.18s ease, transform 0.18s ease;
+	pointer-events: none;
+}
+
+.my-desktop-tile:hover::after {
+	opacity: 1;
+	transform: translate(0, 0);
+}
+
 .my-desktop-tile .tile-icon {
+	width: 48px;
+	height: 48px;
+	border-radius: 12px;
+	background: #f3f4f6;
+	color: #374151;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 56px;
-	height: 56px;
-	border-radius: 12px;
-	background: #f3f4f6;
+	flex-shrink: 0;
 }
 
 .my-desktop-tile .tile-icon svg {
-	width: 28px;
-	height: 28px;
+	width: 26px;
+	height: 26px;
 	stroke: currentColor;
 }
 
@@ -64,12 +149,30 @@
 	font-size: 22px;
 	font-weight: 600;
 	line-height: 1;
+	letter-spacing: -0.01em;
+}
+
+.my-desktop-tile .tile-body {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
 }
 
 .my-desktop-tile .tile-title {
-	font-size: 13px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #0f172a;
+	line-height: 1.25;
+	letter-spacing: -0.005em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.my-desktop-tile .tile-subtitle {
+	font-size: 11.5px;
 	font-weight: 500;
-	text-align: center;
+	letter-spacing: 0;
+	color: #9ca3af;
 	line-height: 1.3;
-	word-break: break-word;
 }

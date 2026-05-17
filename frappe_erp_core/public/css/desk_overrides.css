@@ -1,0 +1,624 @@
+/* =============================================================================
+   Desk Overrides — aggressively extend the design system across module pages.
+   Targets Frappe core class names; matches preview/component-*.html specs.
+
+   Tokens (mirrored from design system):
+     primary       #5e64ff   hover #4a50e8   active #3a3fd5
+     primary-tint  rgba(94,100,255,.10)
+     primary-ring  rgba(94,100,255,.12)
+     border-soft   #eef0f3
+     border-line   #e5e7eb
+     surface       #ffffff
+     bg            #fafbfc
+     text          #1f2937   muted #6b7280   light #9ca3af
+     radius        14px (signature) / 12px (panels) / 8px (controls) / 6px (btns)
+   ============================================================================= */
+
+:root {
+	--erp-primary: #5e64ff;
+	--erp-primary-hover: #4a50e8;
+	--erp-primary-active: #3a3fd5;
+	--erp-primary-tint: rgba(94, 100, 255, 0.10);
+	--erp-primary-ring: rgba(94, 100, 255, 0.12);
+	--erp-border-soft: #eef0f3;
+	--erp-border-line: #e5e7eb;
+	--erp-bg: #fafbfc;
+	--erp-surface: #ffffff;
+	--erp-row-hover: #fafbfc;
+	--erp-chip: #f3f4f6;
+	--erp-text: #1f2937;
+	--erp-text-muted: #6b7280;
+	--erp-text-light: #9ca3af;
+}
+
+/* =============================================================================
+   1. SIDEBAR — 38px items, indigo active tint, refined typography
+   Frappe v16 DOM:
+     .body-sidebar > .standard-sidebar-item > a.item-anchor
+       > span.sidebar-item-icon > svg.icon.icon-sm
+       > span.sidebar-item-label
+   Active item: .standard-sidebar-item.active-sidebar
+   ============================================================================= */
+
+body:not(.my-desktop-page) .body-sidebar {
+	background: var(--erp-surface);
+	border-right: 1px solid var(--erp-border-soft);
+	padding: 10px 8px;
+}
+
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-section-label,
+body:not(.my-desktop-page) .body-sidebar .sidebar-group-title {
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--erp-text-light);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	padding: 14px 12px 8px;
+}
+
+/* Each item is a wrapper div containing an <a class="item-anchor"> */
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item {
+	border-radius: 8px;
+	margin: 1px 0;
+	list-style: none;
+	transition: background 0.12s ease, color 0.12s ease;
+}
+
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item > .item-anchor {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	height: 36px;
+	padding: 0 12px;
+	border-radius: 8px;
+	font-size: 13.5px;
+	font-weight: 500;
+	color: var(--erp-text);
+	text-decoration: none;
+}
+
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item:hover {
+	background: var(--erp-chip);
+}
+
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item:hover > .item-anchor {
+	color: var(--erp-text);
+}
+
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item.active-sidebar,
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item.selected {
+	background: var(--erp-primary-tint);
+}
+
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item.active-sidebar > .item-anchor,
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item.selected > .item-anchor {
+	color: var(--erp-primary);
+	font-weight: 600;
+}
+
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item.active-sidebar .sidebar-item-icon svg,
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item.selected .sidebar-item-icon svg {
+	stroke: var(--erp-primary);
+	color: var(--erp-primary);
+}
+
+/* Don't size the icon container — let Frappe's .icon-sm rule drive SVG size */
+body:not(.my-desktop-page) .body-sidebar .sidebar-item-icon {
+	display: inline-flex;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+/* Notification count pill */
+body:not(.my-desktop-page) .body-sidebar .notification-count,
+body:not(.my-desktop-page) .body-sidebar .sidebar-item-count {
+	font-family: var(--font-mono, monospace);
+	font-size: 11px;
+	font-weight: 500;
+	color: var(--erp-text-muted);
+	background: var(--erp-chip);
+	padding: 2px 8px;
+	border-radius: 9999px;
+	margin-left: auto;
+}
+
+body:not(.my-desktop-page) .body-sidebar .standard-sidebar-item.active-sidebar .notification-count {
+	background: rgba(94, 100, 255, 0.18);
+	color: var(--erp-primary);
+}
+
+/* =============================================================================
+   2. WORKSPACE WIDGET CARDS — 14px radius, soft border, hover lift on interactive
+   ============================================================================= */
+
+.widget.shortcut-widget-box,
+.widget.links-widget-box,
+.widget.number-widget-box,
+.widget.dashboard-widget-box,
+.widget.onboarding-widget-box,
+.widget.quick-list-widget-box,
+.widget.chart-widget-box {
+	background: var(--erp-surface);
+	border: 1px solid var(--erp-border-soft);
+	border-radius: 14px;
+	box-shadow: none;
+	transition: border-color 0.15s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.widget.shortcut-widget-box:hover,
+.widget.links-widget-box:hover,
+.widget.onboarding-widget-box:hover {
+	border-color: var(--erp-primary);
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+	transform: translateY(-1px);
+}
+
+.widget .widget-head {
+	padding: 14px 16px 10px;
+	border-bottom: 1px solid var(--erp-border-soft);
+}
+
+.widget .widget-body {
+	padding: 12px 16px 16px;
+}
+
+.widget .widget-title,
+.widget .widget-label {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--erp-text);
+	letter-spacing: -0.005em;
+	line-height: 1.25;
+}
+
+.widget .widget-subtitle {
+	font-size: 11.5px;
+	font-weight: 500;
+	color: var(--erp-text-light);
+	margin-top: 2px;
+}
+
+.widget.number-widget-box .widget-counter,
+.widget.number-widget-box .number {
+	font-size: 22px;
+	font-weight: 600;
+	color: var(--erp-text);
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+}
+
+.widget.number-widget-box .widget-percentage {
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.widget.links-widget-box .link-item,
+.widget.shortcut-widget-box .link-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 7px 0;
+	font-size: 13px;
+	color: var(--erp-text);
+	transition: color 0.12s ease;
+}
+
+.widget.links-widget-box .link-item:hover,
+.widget.shortcut-widget-box .link-item:hover {
+	color: var(--erp-primary);
+	text-decoration: none;
+}
+
+.codex-editor .ce-block {
+	margin-bottom: 14px;
+}
+
+/* =============================================================================
+   3. LIST VIEW — bordered card wrap, monospace IDs, indigo accent, status pills
+   ============================================================================= */
+
+.layout-main-section-wrapper.list-view {
+	background: var(--erp-bg);
+}
+
+.frappe-list .result {
+	background: var(--erp-surface);
+	border: 1px solid var(--erp-border-soft);
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+.list-row-container {
+	background: var(--erp-surface);
+	border-bottom: 1px solid var(--erp-border-soft);
+	padding: 6px 18px;
+	transition: background 0.12s ease;
+}
+
+.list-row-container:last-child {
+	border-bottom: 0;
+}
+
+.list-row-container:hover {
+	background: var(--erp-row-hover);
+}
+
+.list-row-head {
+	background: var(--erp-surface) !important;
+	border-bottom: 1px solid var(--erp-border-soft);
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--erp-text-light);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	padding: 14px 18px 10px;
+}
+
+.list-row-head .list-row-col,
+.list-row-head .list-subject {
+	font-weight: 600;
+	color: var(--erp-text-light);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+.list-subject .level-item .ellipsis,
+.list-subject a.ellipsis,
+.list-row-container a.list-id {
+	color: var(--erp-primary);
+	font-weight: 500;
+	font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+	font-size: 12.5px;
+}
+
+.list-subject a.ellipsis:hover {
+	color: var(--erp-primary-hover);
+	text-decoration: none;
+}
+
+.list-row-col {
+	font-size: 13.5px;
+	color: var(--erp-text);
+}
+
+/* Right-aligned amount columns: render in mono */
+.list-row-col[data-fieldtype="Currency"],
+.list-row-col[data-fieldtype="Float"],
+.list-row-col[data-fieldtype="Int"] {
+	font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+	font-weight: 500;
+	text-align: right;
+}
+
+/* Filter inputs row */
+.standard-filter-section .form-control,
+.filter-section .form-control {
+	height: 32px;
+	border-radius: 8px;
+	border: 1px solid var(--erp-border-line);
+	background: var(--erp-surface);
+	font-size: 13px;
+}
+
+.standard-filter-section .form-control:focus {
+	background: var(--erp-surface);
+	border-color: var(--erp-primary);
+	box-shadow: 0 0 0 3px var(--erp-primary-ring);
+}
+
+/* =============================================================================
+   4. STATUS / INDICATOR PILLS — match design preview
+   ============================================================================= */
+
+.indicator-pill,
+.indicator,
+.list-row-container .indicator-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 10px;
+	border-radius: 9999px;
+	font-size: 11.5px;
+	font-weight: 500;
+	letter-spacing: 0;
+}
+
+/* =============================================================================
+   5. FORM FIELDS — 38px gray-bg inputs, indigo focus glow
+   ============================================================================= */
+
+.frappe-control .control-label,
+.frappe-control .clearfix > label,
+.form-control-static .control-label {
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--erp-text-muted);
+	letter-spacing: 0.005em;
+	margin-bottom: 6px;
+}
+
+.frappe-control .reqd::after,
+.control-label.reqd::after {
+	content: " *";
+	color: #dc2626;
+}
+
+.frappe-control .form-control,
+.frappe-control input.input-with-feedback,
+.frappe-control textarea.form-control,
+.frappe-control select.form-control,
+.frappe-control .like-disabled-input {
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 500;
+	height: 38px;
+	padding: 0 12px;
+	background: var(--erp-surface);
+	color: var(--erp-text);
+	border: 1px solid var(--erp-border-line);
+	border-radius: 8px;
+	transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+	box-shadow: none;
+}
+
+.frappe-control textarea.form-control {
+	height: auto;
+	min-height: 76px;
+	padding: 10px 12px;
+}
+
+.frappe-control .form-control:hover {
+	background: var(--erp-surface);
+	border-color: var(--erp-text-light);
+}
+
+.frappe-control .form-control:focus,
+.frappe-control input.input-with-feedback:focus,
+.frappe-control textarea.form-control:focus,
+.frappe-control select.form-control:focus {
+	background: var(--erp-surface);
+	border-color: var(--erp-primary);
+	box-shadow: 0 0 0 4px var(--erp-primary-ring);
+	outline: none;
+}
+
+.frappe-control .form-control::placeholder {
+	color: var(--erp-text-light);
+	font-weight: 400;
+}
+
+.frappe-control .has-error .form-control,
+.frappe-control .form-control.is-invalid {
+	background: var(--erp-surface);
+	border-color: #dc2626;
+	box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.10);
+}
+
+.frappe-control .help-box {
+	font-size: 11px;
+	color: var(--erp-text-light);
+	line-height: 1.4;
+	margin-top: 6px;
+}
+
+/* Form section structure */
+.form-section {
+	border-bottom: 1px solid var(--erp-border-soft);
+	padding: 20px 0;
+}
+
+.form-section:last-child {
+	border-bottom: 0;
+}
+
+.section-head {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--erp-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding-bottom: 14px;
+}
+
+/* Form tabs */
+.form-tabs-list,
+.form-tabs {
+	border-bottom: 1px solid var(--erp-border-soft);
+}
+
+.form-tabs-list .nav-link,
+.form-tabs .nav-link {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--erp-text-muted);
+	border-bottom: 2px solid transparent;
+	padding: 10px 16px;
+	transition: color 0.12s ease, border-color 0.12s ease;
+}
+
+.form-tabs-list .nav-link:hover,
+.form-tabs .nav-link:hover {
+	color: var(--erp-text);
+}
+
+.form-tabs-list .nav-link.active,
+.form-tabs .nav-link.active {
+	color: var(--erp-primary);
+	border-bottom-color: var(--erp-primary);
+}
+
+/* =============================================================================
+   6. PAGE HEADER — soft divider, refined breadcrumbs, indigo hover
+   ============================================================================= */
+
+body:not(.my-desktop-page) .page-head {
+	background: var(--erp-surface);
+	border-bottom: 1px solid var(--erp-border-soft);
+}
+
+body:not(.my-desktop-page) .page-head .page-title .title-text {
+	font-size: 18px;
+	font-weight: 600;
+	color: var(--erp-text);
+	letter-spacing: -0.005em;
+}
+
+body:not(.my-desktop-page) .page-head .breadcrumb {
+	font-size: 12px;
+	color: var(--erp-text-muted);
+}
+
+body:not(.my-desktop-page) .page-head .breadcrumb a {
+	color: var(--erp-text-muted);
+	transition: color 0.12s ease;
+}
+
+body:not(.my-desktop-page) .page-head .breadcrumb a:hover {
+	color: var(--erp-primary);
+	text-decoration: none;
+}
+
+/* =============================================================================
+   7. BUTTONS — match design system; primary indigo, default white, ghost
+   ============================================================================= */
+
+.btn {
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: 600;
+	height: 32px;
+	padding: 0 14px;
+	border-radius: 6px;
+	border: 1px solid transparent;
+	line-height: 1;
+	transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.btn-primary,
+.btn-primary:focus {
+	background: var(--erp-primary) !important;
+	border-color: var(--erp-primary) !important;
+	color: #fff !important;
+	font-weight: 600;
+}
+
+.btn-primary:hover {
+	background: var(--erp-primary-hover) !important;
+	border-color: var(--erp-primary-hover) !important;
+}
+
+.btn-primary:active,
+.btn-primary.active {
+	background: var(--erp-primary-active) !important;
+	border-color: var(--erp-primary-active) !important;
+}
+
+.btn-default,
+.btn-secondary {
+	background: var(--erp-surface);
+	border-color: var(--erp-border-line);
+	color: var(--erp-text);
+	font-weight: 500;
+}
+
+.btn-default:hover,
+.btn-secondary:hover {
+	background: var(--erp-chip);
+	border-color: var(--erp-border-line);
+}
+
+.btn-danger {
+	background: #dc2626;
+	border-color: #dc2626;
+	color: #fff;
+}
+
+.btn-danger:hover {
+	background: #b91c1c;
+	border-color: #b91c1c;
+}
+
+.btn[disabled],
+.btn[disabled]:hover {
+	background: var(--erp-chip);
+	color: var(--erp-text-light);
+	border-color: var(--erp-border-line);
+	cursor: not-allowed;
+}
+
+.btn-sm,
+.btn-xs {
+	height: 26px;
+	font-size: 12px;
+	padding: 0 10px;
+}
+
+/* =============================================================================
+   8. CHECKBOX & SWITCH — visible borders so they don't disappear on the bg
+   ============================================================================= */
+
+.frappe-control [type="checkbox"],
+.frappe-control .checkbox input[type="checkbox"],
+.checkbox input[type="checkbox"] {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 16px;
+	height: 16px;
+	border: 1px solid var(--erp-border-line);
+	border-radius: 4px;
+	background: var(--erp-surface);
+	cursor: pointer;
+	position: relative;
+	margin: 0 6px 0 0;
+	vertical-align: middle;
+	transition: background 0.12s ease, border-color 0.12s ease;
+	flex-shrink: 0;
+}
+
+.frappe-control [type="checkbox"]:hover,
+.checkbox input[type="checkbox"]:hover {
+	border-color: var(--erp-primary);
+}
+
+.frappe-control [type="checkbox"]:checked,
+.checkbox input[type="checkbox"]:checked {
+	background: var(--erp-primary);
+	border-color: var(--erp-primary);
+}
+
+.frappe-control [type="checkbox"]:checked::after,
+.checkbox input[type="checkbox"]:checked::after {
+	content: "";
+	position: absolute;
+	left: 4px;
+	top: 1px;
+	width: 5px;
+	height: 9px;
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+}
+
+.frappe-control [type="checkbox"]:focus,
+.checkbox input[type="checkbox"]:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px var(--erp-primary-ring);
+}
+
+.checkbox .label-area {
+	font-size: 13.5px;
+	color: var(--erp-text);
+	vertical-align: middle;
+}
+
+/* =============================================================================
+   9. ONBOARDING WIDGET — hide the floating "Getting Started" card.
+   It's a position:fixed .onb-panel that overlaps content on every
+   workspace/list/form on first paint. The sidebar "Getting Started"
+   toggle remains so users can re-enable it if needed.
+   ============================================================================= */
+
+.onb-panel,
+.widget.onboarding-widget-box {
+	display: none !important;
+}

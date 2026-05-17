@@ -56,3 +56,11 @@ jspm_packages/
 
 # Git worktrees
 .worktrees/
+
+# Playwright / test artifacts
+.playwright-mcp/
+.superpowers/
+regression_screens/
+
+# Loose screenshots from manual UI testing
+/*.png
